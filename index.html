@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Anfel</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #ff6f61;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+      margin-bottom: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #444;
+      text-align: center;
+      max-width: 90%;
+    }
+
+    #message {
+      font-size: 2rem;
+      color: #ff4081;
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 2s ease-in-out forwards;
+      font-weight: bold;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      background: #ff6b6b;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .balloon {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      border-radius: 50% 50% 45% 45%;
+      opacity: 0.8;
+      animation: float 8s ease-in-out forwards;
+    }
+
+    .firework {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(0.2);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(3.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Happy Birthday Anfel 🎂</h1>
+  <p>Wishing you a day filled with love, joy, and unforgettable moments. 💖</p>
+
+  <button class="btn" onclick="celebrate()">🎈 Click to Celebrate 🎈</button>
+
+  <div id="message">🎉 Happy Birthday Anfel! 🎉</div>
+
+  <!-- Background music -->
+  <audio id="music" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/07/20/audio_e9b2cc3a7f.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Applause sound -->
+  <audio id="applause">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_64329efecb.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    document.body.addEventListener('click', () => {
+      const music = document.getElementById('music');
+      if (music.paused) {
+        music.play().catch(e => console.log("Audio play blocked:", e));
+      }
+    });
+
+    function celebrate() {
+      // عرض الرسالة
+      const msg = document.getElementById("message");
+      msg.style.display = "block";
+
+      // تشغيل التصفيق
+      document.getElementById("applause").play();
+
+      // إطلاق البالونات
+      const colors = ['#ffadad', '#ffd6a5', '#caffbf', '#9bf6ff', '#bdb2ff', '#fcd5ce'];
+      for (let i = 0; i < 25; i++) {
+        const balloon = document.createElement('div');
+        balloon.className = 'balloon';
+        balloon.style.left = Math.random() * 90 + '%';
+        balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+        balloon.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(balloon);
+        setTimeout(() => balloon.remove(), 10000);
+      }
+
+      // مؤثرات الألعاب النارية
+      for (let i = 0; i < 25; i++) {
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.left = Math.random() * 100 + 'vw';
+        firework.style.top = Math.random() * 100 + 'vh';
+        firework.style.background = colors[Math.floor(Math.random() * colors.length)];
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+      }
+    }
+  </script>
+</body>
+</html>
